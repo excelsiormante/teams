@@ -13,7 +13,7 @@
 		<div class = "navbar navbar-default navbar-fixed-top">
             <div class = "container">
                                
-                <a href="{{ URL::to('/') }}" class = "navbar-brand"><img style ="height:30px; margin-top:-4px;"src="{{ URL::asset('img/teams_pahalang.png') }}"/></a>
+                <a href="{{ URL::to('employee/dashboard') }}" class = "navbar-brand"><img style ="height:30px; margin-top:-4px;"src="{{ URL::asset('img/teams_pahalang.png') }}"/></a>
                                
                 <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
                         <span class = "icon-bar"></span>
@@ -33,7 +33,7 @@
                             @else
                                 <li><a href = "{{ URL::to('employee/requests_authorization') }}">Requests Authorization</a></li>
                             @endif
-                            <li><a href = "{{ URL::to('employee/request') }}">Request a Leave</a></li>
+                            <li><a href = "{{ URL::to('create_requests') }}">Request a Leave</a></li>
                               </ul>
                             </li>
                             <li class="dropdown"><a href = "#">Queries<b class="caret"></b></a>

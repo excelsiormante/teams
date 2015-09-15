@@ -25,17 +25,14 @@
                     
                         <th><input type="text" class="form-control" placeholder="fname"></th>
                         <th><input type="text" class="form-control" placeholder="lname"></th>
-                    	<th><input type="text" class="form-control" placeholder="phone number"></th>
-                    	<th><input type="text" class="form-control" placeholder="email"></th>
-                    	<th><input type="text" class="form-control" placeholder="hire date"></th>
-                    	<th><input type="text" class="form-control" placeholder="job title"></th>
-                    	<th><input type="text" class="form-control" placeholder="employee type"></th>
+                        <th><input type="text" class="form-control" placeholder="phone number"></th>
+                        <th><input type="text" class="form-control" placeholder="email"></th>
+                        <th><input type="text" class="form-control" placeholder="hire date"></th>
+                        <th><input type="text" class="form-control" placeholder="job title"></th>
+                        <th><input type="text" class="form-control" placeholder="contract name"></th>
                         <th><input type="text" class="form-control" placeholder="department"></th>
-                        <th><input type="text" class="form-control" placeholder="department"></th>
-                        
-                    
-   
-                   
+                        <th><input type="text" class="form-control" placeholder="branch"></th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -61,33 +58,31 @@
                         {{$emp->hire_date}}
                     </td>
                     @foreach($jobtitles as $jobtitle)
-                    		@if($jobtitle->id == $emp->jobtitle_id)
-                    		<td>{{$jobtitle->jobtitle_name}}</td>
-                    		@endif
+                            @if($jobtitle->id == $emp->jobtitle_id)
+                            <td>{{$jobtitle->jobtitle_name}}</td>
+                            @endif
                     @endforeach
 
                     @foreach($contracts as $contract)
-                    		@if($contract->id == $emp->contract_id)
-                    		<td>{{$contract->contract_name}}</td>
-                    		@endif
+                            @if($contract->id == $emp->contract_id)
+                            <td>{{$contract->contract_name}}</td>
+                            @endif
                     @endforeach
-
-
+                 
                     @foreach ($departments as $department)
                          @if ($department->id == $emp->department_id)
                         <td>{{  $department->name }}</td>
+                        @foreach($branches as $branch)
+                                    @if ($branch->id == $department->branch_id)
+                                        <td>{{  $branch->branch_name }}</td>
+                                    @endif
+                                @endforeach
                         @endif
                     @endforeach
 
-                    @foreach($hierarchies as $hierarchy)
-                        <td>{{$hierarchy->hierarchy_name}}</td>
-                        @endforeach
-                    
 
-                    
+                    @endforeach
 
-                 @endforeach
-       
                 </tbody>
             </table>
         </div>
