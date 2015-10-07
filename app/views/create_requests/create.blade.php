@@ -7,7 +7,7 @@
                   @if (Session::has('messageb'))
          <div class="alert alert-warning">{{ Session::get('messageb') }}</div><br>
       @endif
-                        <h1 style = "color:white;">Create Request</h1>
+                        <h1 style = "color:white;">File a Leave Request</h1>
                   </div>
             </div>
 <div class = "container">
@@ -38,7 +38,7 @@
         
 
        
-            <div class="label_white">{{ Form::label('end_date', 'End_Date:') }}</div>
+            <div class="label_white">{{ Form::label('end_date', 'End Date:') }}</div>
             {{ Form::text('end_date', Input::get('end_date'), array('autocomplete' => 'off', 'size' => '35','id' => 'calendarb','placeholder' => 'yyyy-mm-dd')) }}<br>
              </div>
             

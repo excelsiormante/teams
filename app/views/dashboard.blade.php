@@ -1,7 +1,7 @@
 @extends("layout")
 @section("content")
 <head>
-	<title>Dashboard | Time and Electronic Attendance Monitoring System</title>
+	<title>Administrator Portal | Time and Electronic Attendance Monitoring System</title>
 </head>
 <div class = "row">
 	<div class = "col-md-1" style = "margin-top:20px;">
@@ -31,8 +31,10 @@
 	
 
 <div class = "col-md-6">
+	<a href="absent_employee">
+
 		<div class = "col-md-3 greentile">
-				<center><h1 style = "color:white;">0</h1></center>
+				<center><h1 style = "color:white;">{{$punch}}</h1></center>
 				<center><h4 style = "color:white;">Employees</h4></center>
 		</div>
 		<div class = "col-md-9 greytile">
@@ -41,6 +43,7 @@
 			<br>
 		</div>
 	</div>
+	</a>
 </div>
 
 

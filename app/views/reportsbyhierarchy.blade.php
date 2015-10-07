@@ -2,12 +2,32 @@
 @section("content")
 
 <head>
-    <title>Reports | Time and Electronic Attendance Monitoring System</title>
+    <title>Hierarchy List Report | Time and Electronic Attendance Monitoring System</title>
 </head>
 
-<h1>Reports by Hierarchy</h1>
-<br>
+<h1>Hierarchy List Report</h1>
+<div class = "row">
+    <div class='col-md-3'>
+    {{ Form::open(array('url' => 'report/hierarchy', 'method' => 'get')) }}
 
+    <h3>Select a Month</h3>
+         {{ Form::selectMonth('month', Input::get('month'));}}<br><br>
+    </div>
+
+    <div class='col-md-3'>
+    <h3>Select a Year</h3>
+
+         {{ Form::selectYear('year', date('Y'), 1960 , Input::get('year'))}}<br><br>
+    </div>
+
+    <div class ='col-md-3'>
+        <br><br>
+        {{ Form::submit('Generate PDF', array('class' => 'btn btn-success')) }}
+        {{ Form::close() }}
+    </div>
+</div>
+
+<hr>
 <?php
 
 
@@ -22,6 +42,10 @@ class PDF extends FPDF
 {
 	function Header()
 	{
+        $month = Session::get('month_query', 'default');
+        $year = Session::get('year_query', 'default');
+        $monthName = date("F", mktime(0, 0, 0, $month, 10));
+
 		$this->SetFont('Arial','B',12);
     	// Move to the right
     	$this->Cell(82);
@@ -30,19 +54,26 @@ class PDF extends FPDF
 
     	$this->Ln(8);
 
-    	$this->Cell(60);
+    	$this->Cell(76);
     	// Title
-    	$this->Cell(20,10,'For the month of ' . date('F') . ' ' . date('Y'),'C');
+    	$this->Cell(20,10,'As of ' . $monthName. ' ' . $year,'C');
 
     	$this->Ln(8);
 	}
 
 	function BasicTable($header, $hierarchies, $hierarchy_subordinates, $level_id, $employ_joins)
 	{
+        $month = Session::get('month_query', 'default');
+        $year = Session::get('year_query', 'default');
+
+        $start_date = $year.'-'.$month.'-01';
+        $end_date = $year.'-'.$month.'-31';
+
         //Para sa supervisor
         $supervisors = DB::table('hierarchies')
             ->join('employs', 'hierarchies.supervisor_id', '=', 'employs.id')
             ->join('levels', 'employs.level_id', '=', 'levels.id')
+            ->whereBetween('hierarchies.created_at', array($start_date, $end_date))
             ->get();
 
         //Para sa subordinates
@@ -94,15 +125,14 @@ class PDF extends FPDF
     	$this->SetY(-15);
     	// Arial italic 8
     	$this->SetFont('Arial','I',8);
-    	// Page number
-    	$this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+    	// Page number + Logo
+        $this->Image('img/teams_pahalang.png',159,283.5,16,7);
+        $this->Cell(0,10,'|    Page '.$this->PageNo().' of {nb}',0,0,'R');
 	}
 }
 $pdf = new PDF();
 $header = array('Last Name', 'First Name', 'E-mail', 'Phone #');
 $pdf->AliasNbPages();
-
-
 $pdf->SetFont('Arial','',12);
 $pdf->AddPage();
 $pdf->BasicTable($header, $employs, $branchess, $branches, $departments);

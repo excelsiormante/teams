@@ -1,4 +1,4 @@
-@extends("layout_employee")
+@extends("layout")
 @section("content")
 <div class="col-md-4">
 </div>
@@ -7,7 +7,6 @@
 <br>
 <p style="color:black">____________________________________</p>
 <p style="color:black">Name</p>
-
 
 <p style="color:black"> For the month of _____________ 20 ___ </p>
 <p style="color:black">Regular Days ___________ </p>
